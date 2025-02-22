@@ -1,41 +1,40 @@
 PHP开发环境搭建指南
-Windows系统下的PHP开发环境搭建
-实验环境与内容
-安装和配置WAMP：选择WampServer 2.0或3.2进行安装。
-配置EasyEclipse for PHP：用于集成PHP开发。
-安装MySQL管理工具MySQLFront：方便管理数据库。
-实验准备
-下载并准备必要的安装程序：WampServer 2.0i.exe 、easyeclipse-php安装程序、MySQL_Front安装程序。
-实验步骤
-安装WampServer：
-运行安装程序，按照提示进行安装。
-安装完成后，测试运行环境是否正常。
-安装EasyEclipse for PHP：
-运行安装程序，选择安装路径。
-设置程序环境，完成新建PHP项目。
-编写PHP程序：
-在项目树中右键单击项目节点，选择新建PHP文件。
-编辑代码并保存，在PHPBrowser窗口查看运行结果。
-Linux系统下的PHP开发环境搭建
-软件及系统版本
-通常使用的Linux发行版和相关软件版本，如Apache2.4、PHP7.1和MySQL5.7。
-安装步骤
-安装必要的软件包：
-使用包管理器安装Apache、PHP和MySQL。
-配置Apache：
-修改配置文件，确保监听正确的端口。
-启动并测试服务：
-启动Apache和MySQL服务，通过浏览器访问测试页面确认安装成功。
-常用PHP开发工具介绍
-NetBeans
-特点：免费的开源集成开发环境，支持多种编程语言，包括PHP。
-安装：需要下载并安装Java JDK，因为NetBeans依赖于Java运行环境。
-XAMPP
-特点：流行的PHP运行环境，集成了Apache、MySQL、PHP和Perl。
-安装：简单易用，适合快速搭建本地开发环境。
-常见问题：可能会遇到端口冲突等问题，可以通过修改配置文件解决。
-注意事项
-在安装和配置过程中，确保所有服务的端口没有冲突。
-测试环境时，可以通过创建一个简单的PHP文件来验证PHP是否安装正确。
-使用集成开发环境（IDE）如EasyEclipse for PHP可以大大提高开发效率。
-通过以上步骤和工具的介绍，您应该能够在Windows或Linux系统上成功搭建一个基本的PHP开发环境。希望这些信息对您有所帮助！
+一、Windows系统搭建方案
+1. 集成环境（推荐新手）
+WampServer/XAMPP/PhpStudy：一键安装Apache、PHP、MySQL等组件，无需手动配置。
+PhpStudy支持自定义端口（如解决80端口冲突问题），提供可视化控制面板。
+安装后需启动Apache和MySQL服务，访问http://localhost:端口号测试环境是否正常。
+2. 手动配置（适合进阶）
+安装Apache
+下载Apache官方包，修改httpd.conf 中的根目录和端口，以管理员身份安装服务。
+安装PHP
+下载PHP线程安全版本，解压到指定目录，在httpd.conf 添加LoadModule php7_module "路径/php7apache2_4.dll" 。
+安装MySQL
+配置php.ini 启用php_mysql.dll 和php_mysqli.dll 扩展，设置数据库连接参数。
+二、Linux系统搭建方案
+1. 使用包管理器（Ubuntu为例）
+sudo apt update 
+sudo apt install apache2 php mysql-server php-mysql 
+sudo systemctl restart apache2  # 重启服务生效 
+验证：创建/var/www/html/info.php 文件，内容为<?php phpinfo(); ?>，访问http://localhost/info.php 。
+2. 高级配置
+虚拟主机：在/etc/apache2/sites-available/中创建配置文件，指定域名和项目目录。
+性能优化：调整php.ini 中的max_execution_time（脚本超时时间）和memory_limit（内存限制）。
+三、开发工具推荐
+PhpStorm
+专业IDE，需配置PHP解释器路径（如PhpStudy的php.exe 路径）。
+Visual Studio Code
+轻量级编辑器，安装PHP Intelephense插件支持代码提示。
+数据库管理
+MySQL Workbench或phpMyAdmin（集成环境自带）。
+四、常见问题解决
+端口冲突
+修改Apache的Listen 80为其他端口（如8080）。
+PHP扩展缺失
+在php.ini 中取消注释extension=curl等所需模块。
+路径权限问题
+Linux系统需给项目目录赋予chmod -R 755 /var/www权限。
+五、测试与验证
+创建测试文件test.php ，写入<?php echo "Hello, PHP!"; ?>，通过浏览器访问验证输出。
+检查phpinfo()页面是否显示已启用的模块（如MySQL、GD库）。
+通过上述步骤，您可快速搭建适用于不同场景的PHP开发环境。若需更详细的框架配置（如Laravel）或生产环境部署方案，可进一步参考官方文档。
